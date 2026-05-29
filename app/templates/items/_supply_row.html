@@ -1,0 +1,6 @@
+{# expects `task_index` and optional `supply` #}
+<div class="row supply-row">
+  <input type="text" name="task_{{ task_index }}_supply_label" value="{{ supply.label if supply else '' }}" placeholder="Supply label" />
+  <input type="url" name="task_{{ task_index }}_supply_url" value="{{ (supply.amazon_url|string) if (supply and supply.amazon_url) else '' }}" placeholder="https://..." />
+  <button type="button" class="btn-link" onclick="this.parentElement.remove()">Remove</button>
+</div>

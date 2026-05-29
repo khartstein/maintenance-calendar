@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Add item - Maintenance Calendar{% endblock %}
+{% block content %}
+<h2>Add an item</h2>
+<p>Tell us what you own. We'll look up a maintenance schedule and supplies you can review before saving.</p>
+<form method="post" action="/items/new" class="stacked-form">
+  <label for="name">Name (required)</label>
+  <input id="name" name="name" type="text" required autocomplete="off" placeholder="e.g. Breville Barista Express" />
+
+  <label for="amazon_url">Amazon URL (optional)</label>
+  <input id="amazon_url" name="amazon_url" type="url" autocomplete="off" placeholder="https://www.amazon.com/..." />
+
+  <label for="asin">ASIN (optional)</label>
+  <input id="asin" name="asin" type="text" autocomplete="off" placeholder="B01234ABCD" />
+
+  <p class="hint">Research takes 10-30 seconds. Don't refresh the page.</p>
+  <div class="form-actions">
+    <button type="submit">Research item</button>
+    <a class="btn-link" href="/">Cancel</a>
+  </div>
+</form>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Settings - Maintenance Calendar{% endblock %}
+{% block content %}
+<h2>Settings</h2>
+
+<section class="settings-section">
+  <h3>Account</h3>
+  <p>Signed in as <code>{{ user.email }}</code></p>
+  <p>Household: <code>{{ household_name }}</code></p>
+  <form method="post" action="/auth/logout">
+    <button type="submit">Log out</button>
+  </form>
+</section>
+
+<section class="settings-section">
+  <h3>Calendar subscription</h3>
+  <p>Subscribe in Apple Calendar, Google Calendar, or any iCal-compatible client:</p>
+  <div class="copy-row">
+    <input id="webcal-url" type="text" readonly value="{{ webcal_url }}" />
+    <button type="button" onclick="navigator.clipboard.writeText(document.getElementById('webcal-url').value)">Copy</button>
+  </div>
+  <p class="hint">HTTPS variant: <code>{{ https_url }}</code></p>
+</section>
+{% endblock %}

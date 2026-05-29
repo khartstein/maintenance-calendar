@@ -1,0 +1,68 @@
+{# expects `tasks` (list of MaintenanceTaskDraft) and `form_action` and `is_edit` #}
+<input type="hidden" name="task_count" value="{{ tasks|length }}" />
+{% for task in tasks %}
+  {% set i = loop.index0 %}
+  <fieldset class="task-editor">
+    <legend>Task {{ loop.index }}</legend>
+
+    <label>Title
+      <input type="text" name="task_{{ i }}_title" value="{{ task.title }}" required />
+    </label>
+
+    <label>Description
+      <textarea name="task_{{ i }}_description" rows="3">{{ task.description }}</textarea>
+    </label>
+
+    <fieldset class="cadence">
+      <legend>Cadence</legend>
+      <label>
+        <input type="radio" name="task_{{ i }}_cadence_unit" value="months"
+          {% if task.cadence.years is none %}checked{% endif %} />
+        months
+      </label>
+      <label>
+        <input type="radio" name="task_{{ i }}_cadence_unit" value="years"
+          {% if task.cadence.years is not none %}checked{% endif %} />
+        years
+      </label>
+      <label>every
+        <input type="number" name="task_{{ i }}_cadence_value" min="1"
+          value="{{ task.cadence.years if task.cadence.years is not none else (task.cadence.months or 1) }}" />
+      </label>
+    </fieldset>
+
+    <div class="rows-block">
+      <h4>Supplies</h4>
+      <div id="task-{{ i }}-supplies">
+        {% for supply in task.supplies %}
+          {% with task_index = i %}
+            {% include "items/_supply_row.html" %}
+          {% endwith %}
+        {% endfor %}
+      </div>
+      <button type="button"
+        hx-post="/items/_partial/supply_row"
+        hx-vals='{"task_index": {{ i }} }'
+        hx-target="#task-{{ i }}-supplies"
+        hx-swap="beforeend"
+        class="btn-link">+ Add supply</button>
+    </div>
+
+    <div class="rows-block">
+      <h4>Videos</h4>
+      <div id="task-{{ i }}-videos">
+        {% for video in task.videos %}
+          {% with task_index = i %}
+            {% include "items/_video_row.html" %}
+          {% endwith %}
+        {% endfor %}
+      </div>
+      <button type="button"
+        hx-post="/items/_partial/video_row"
+        hx-vals='{"task_index": {{ i }} }'
+        hx-target="#task-{{ i }}-videos"
+        hx-swap="beforeend"
+        class="btn-link">+ Add video</button>
+    </div>
+  </fieldset>
+{% endfor %}

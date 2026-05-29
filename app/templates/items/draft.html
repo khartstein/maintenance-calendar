@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Review research - {{ item.name }}{% endblock %}
+{% block content %}
+<h2>Review research</h2>
+<p class="summary"><strong>{{ item.name }}</strong> — {{ item.summary }}</p>
+<p>Edit anything that looks off, then save to add these tasks to your calendar.</p>
+
+<form method="post" action="{{ form_action }}" class="stacked-form">
+  {% include "items/_task_editor.html" %}
+  <div class="form-actions">
+    <button type="submit">Save tasks</button>
+    <a class="btn-link" href="/">Cancel</a>
+  </div>
+</form>
+{% endblock %}

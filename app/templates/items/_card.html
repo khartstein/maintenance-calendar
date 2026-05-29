@@ -1,0 +1,14 @@
+{# expects `item` in context #}
+<article class="item-card">
+  <header>
+    <h3>{{ item.name }}</h3>
+    <span class="task-count">{{ item.tasks|length }} task{% if item.tasks|length != 1 %}s{% endif %}</span>
+  </header>
+  {% if item.summary %}<p class="summary">{{ item.summary }}</p>{% endif %}
+  <footer class="item-actions">
+    <a class="btn-link" href="/items/{{ item.id }}/edit">Edit</a>
+    <form method="post" action="/items/{{ item.id }}/delete" onsubmit="return confirm('Delete {{ item.name }}?');">
+      <button type="submit" class="btn-link danger">Delete</button>
+    </form>
+  </footer>
+</article>

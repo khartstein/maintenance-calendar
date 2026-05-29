@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Edit {{ item.name }}{% endblock %}
+{% block content %}
+<h2>Edit item</h2>
+
+<form method="post" action="{{ form_action }}" class="stacked-form">
+  <label>Name
+    <input type="text" name="name" value="{{ item.name }}" required />
+  </label>
+  <label>Summary
+    <textarea name="summary" rows="3">{{ item.summary }}</textarea>
+  </label>
+
+  <h3>Tasks</h3>
+  {% include "items/_task_editor.html" %}
+
+  <div class="form-actions">
+    <button type="submit">Save changes</button>
+    <a class="btn-link" href="/">Cancel</a>
+  </div>
+</form>
+{% endblock %}

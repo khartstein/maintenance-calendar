@@ -1,0 +1,7 @@
+{# expects `task_index` and optional `video` #}
+<div class="row video-row">
+  <input type="text" name="task_{{ task_index }}_video_title" value="{{ video.title if video else '' }}" placeholder="Video title" />
+  <input type="url" name="task_{{ task_index }}_video_url" value="{{ (video.url|string) if (video and video.url) else '' }}" placeholder="https://youtube.com/..." />
+  <input type="text" name="task_{{ task_index }}_video_channel" value="{{ video.channel if (video and video.channel) else '' }}" placeholder="Channel" />
+  <button type="button" class="btn-link" onclick="this.parentElement.remove()">Remove</button>
+</div>

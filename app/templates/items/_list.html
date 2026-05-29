@@ -1,0 +1,12 @@
+{% if items %}
+  <ul class="item-list">
+    {% for item in items %}
+      <li>{% include "items/_card.html" %}</li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <div class="empty-state">
+    <p>No items yet.</p>
+    <p><a class="btn" href="/items/new">Add your first item</a></p>
+  </div>
+{% endif %}

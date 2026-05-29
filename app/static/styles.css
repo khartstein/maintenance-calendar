@@ -8,3 +8,76 @@ body { max-width: 60ch; margin: 2em auto; padding: 0 1em; }
 header h1 { font-size: 1.5rem; margin: 0 0 1em; }
 header a { text-decoration: none; color: inherit; }
 code { background: #eee; padding: 0 0.25em; border-radius: 3px; }
+
+.page-header {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 1em; flex-wrap: wrap;
+}
+.page-header h2 { margin: 0; }
+.page-header .actions { display: flex; gap: 0.75em; align-items: center; }
+
+.btn, button {
+  display: inline-block; padding: 0.4em 0.9em; border-radius: 4px;
+  background: #2b4cf2; color: white; border: 1px solid #2b4cf2;
+  text-decoration: none; font: inherit; cursor: pointer;
+}
+.btn:hover, button:hover { background: #1d3bc8; }
+.btn-link {
+  background: none; border: none; color: #2b4cf2;
+  padding: 0; text-decoration: underline; cursor: pointer; font: inherit;
+}
+.btn-link.danger { color: #c0392b; }
+
+.empty-state { padding: 2em 0; text-align: center; color: #555; }
+
+.item-list { list-style: none; padding: 0; margin: 1em 0; }
+.item-card {
+  border: 1px solid #ddd; border-radius: 6px; padding: 1em;
+  margin-bottom: 1em; background: white;
+}
+.item-card header {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 1em;
+}
+.item-card header h3 { margin: 0; }
+.item-card .summary { color: #444; margin: 0.5em 0; }
+.item-card .task-count { color: #777; font-size: 0.9em; }
+.item-card .item-actions {
+  display: flex; gap: 1em; align-items: center; margin-top: 0.5em;
+}
+.item-card .item-actions form { display: inline; margin: 0; }
+
+.stacked-form { display: flex; flex-direction: column; gap: 0.75em; margin: 1em 0; }
+.stacked-form label { display: block; font-weight: 500; }
+.stacked-form input[type="text"],
+.stacked-form input[type="url"],
+.stacked-form input[type="email"],
+.stacked-form input[type="number"],
+.stacked-form textarea {
+  width: 100%; padding: 0.4em; border: 1px solid #ccc; border-radius: 4px;
+  font: inherit; box-sizing: border-box;
+}
+.form-actions { display: flex; gap: 1em; align-items: center; margin-top: 0.5em; }
+.hint { color: #666; font-size: 0.9em; }
+
+.task-editor {
+  border: 1px solid #ddd; border-radius: 6px; padding: 1em;
+  margin: 1em 0; background: white;
+}
+.task-editor legend { font-weight: 600; padding: 0 0.4em; }
+.task-editor .cadence { border: none; padding: 0; margin: 0.5em 0; }
+.task-editor .cadence legend { font-weight: 500; padding: 0; }
+.task-editor .cadence label { display: inline-flex; margin-right: 0.75em; gap: 0.25em; }
+.rows-block { margin-top: 0.75em; }
+.rows-block h4 { margin: 0.5em 0 0.25em; }
+.row {
+  display: flex; gap: 0.5em; margin-bottom: 0.25em; align-items: center;
+  flex-wrap: wrap;
+}
+.row input { flex: 1; min-width: 8em; }
+
+.settings-section {
+  border: 1px solid #ddd; border-radius: 6px; padding: 1em;
+  margin-bottom: 1em; background: white;
+}
+.copy-row { display: flex; gap: 0.5em; align-items: center; }
+.copy-row input { flex: 1; padding: 0.4em; font: inherit; }
