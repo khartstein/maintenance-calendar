@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}Sign-in failed - Maintenance Calendar{% endblock %}
+{% block content %}
+<h2>Sign-in failed</h2>
+<p>We couldn't verify that magic link.</p>
+<p>Reason: <code>{{ reason }}</code></p>
+<p><a href="/auth/login">Request a new link</a></p>
+{% endblock %}
