@@ -1,0 +1,45 @@
+{
+  "item_summary": "Breville Barista Express semi-automatic espresso machine with built-in conical burr grinder. Requires regular cleaning of the group head, periodic descaling, and water filter replacement to maintain shot quality and prevent scale damage.",
+  "tasks": [
+    {
+      "title": "Descale espresso machine",
+      "description": "Run a full descaling cycle using citric-acid-based espresso descaler to remove mineral scale from the boiler and water lines. Frequency depends on water hardness; soft-water households can extend to every 3 months.",
+      "cadence": {"months": 2},
+      "supplies": [
+        {"label": "Espresso descaling solution", "search_query": "espresso machine descaler citric acid"},
+        {"label": "Filtered water (1L)", "search_query": "brita filtered water pitcher"}
+      ],
+      "videos": [],
+      "video_search_queries": [
+        "Breville Barista Express descaling tutorial",
+        "how to descale espresso machine at home"
+      ]
+    },
+    {
+      "title": "Replace water filter",
+      "description": "Swap the in-tank charcoal water filter to reduce scale buildup and improve taste. Manufacturer-recommended interval; replace sooner if you brew more than ~5 shots per day.",
+      "cadence": {"months": 3},
+      "supplies": [
+        {"label": "Breville-compatible water filter", "search_query": "Breville claro swiss water filter replacement"}
+      ],
+      "videos": [],
+      "video_search_queries": [
+        "Breville Barista Express water filter replacement"
+      ]
+    },
+    {
+      "title": "Backflush group head",
+      "description": "Blind-disc backflush with espresso machine cleaning detergent to clear coffee oils and grounds from the three-way valve and group head.",
+      "cadence": {"months": 1},
+      "supplies": [
+        {"label": "Espresso machine cleaning tablets", "search_query": "cafiza espresso machine cleaning tablets"},
+        {"label": "Blind portafilter basket", "search_query": "58mm blind filter basket backflush"}
+      ],
+      "videos": [],
+      "video_search_queries": [
+        "Breville Barista Express backflush tutorial",
+        "espresso machine group head cleaning"
+      ]
+    }
+  ]
+}
