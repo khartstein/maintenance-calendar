@@ -1,21 +1,18 @@
 from fastapi import FastAPI
-from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
-from starlette.requests import Request
 
-from .settings import settings
+from .routers.auth import router as auth_router
+from .routers.calendar import router as calendar_router
+from .routers.items import router as items_router
+from .routers.settings import router as settings_router
 
 app = FastAPI(title="Maintenance Calendar")
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
-templates = Jinja2Templates(directory="app/templates")
 
-
-@app.get("/", response_class=HTMLResponse)
-def index(request: Request) -> HTMLResponse:
-    return templates.TemplateResponse(
-        request, "index.html", {"env": settings.app_env}
-    )
+app.include_router(items_router)
+app.include_router(auth_router)
+app.include_router(calendar_router)
+app.include_router(settings_router)
 
 
 @app.get("/healthz")
