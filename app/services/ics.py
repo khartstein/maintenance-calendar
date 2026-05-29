@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Iterable
-from datetime import timedelta
+from datetime import datetime, timedelta, timezone
 from typing import Any
 
 from ics.grammar.parse import Container, ContentLine
@@ -18,7 +18,10 @@ _DEFAULT_HOUSEHOLD_NAME = "Default"
 def build_calendar(
     household: Household,
     tasks: Iterable[tuple[Item, MaintenanceTask]],
+    now: datetime | None = None,
 ) -> str:
+    dtstamp = _format_dtstamp(now if now is not None else datetime.now(timezone.utc))
+
     cal = Container("VCALENDAR")
     cal.append(ContentLine("VERSION", value="2.0"))
     cal.append(ContentLine("PRODID", value="-//maintenance-calendar//EN"))
@@ -29,9 +32,17 @@ def build_calendar(
     enabled.sort(key=lambda pair: (pair[1].dtstart, pair[1].title))
 
     for item, task in enabled:
-        cal.append(_event_container(item, task))
+        cal.append(_event_container(item, task, dtstamp))
 
     return str(cal) + "\r\n"
+
+
+def _format_dtstamp(value: datetime) -> str:
+    if value.tzinfo is None:
+        value = value.replace(tzinfo=timezone.utc)
+    else:
+        value = value.astimezone(timezone.utc)
+    return value.strftime("%Y%m%dT%H%M%SZ")
 
 
 def _calname(household: Household) -> str:
@@ -40,9 +51,10 @@ def _calname(household: Household) -> str:
     return _DEFAULT_CALNAME
 
 
-def _event_container(item: Item, task: MaintenanceTask) -> Container:
+def _event_container(item: Item, task: MaintenanceTask, dtstamp: str) -> Container:
     event = Container("VEVENT")
     event.append(ContentLine("UID", value=f"{task.id}@maintenance-calendar"))
+    event.append(ContentLine("DTSTAMP", value=dtstamp))
     event.append(
         ContentLine(
             "DTSTART",

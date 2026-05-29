@@ -1,7 +1,8 @@
 from __future__ import annotations
 
+import re
 import uuid
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta, timezone
 
 from icalendar import Calendar as ICalCalendar
 
@@ -156,3 +157,39 @@ def test_calname_includes_household_name_when_non_default() -> None:
     text = build_calendar(household, [])
     cal = ICalCalendar.from_ical(text)
     assert "Smith Family" in str(cal.get("X-WR-CALNAME"))
+
+
+_DTSTAMP_RE = re.compile(r"^\d{8}T\d{6}Z$")
+
+
+def test_every_vevent_has_dtstamp_in_basic_utc_format() -> None:
+    household = _household()
+    item = _item(household, name="Mower")
+    tasks = [
+        (item, _task(item, title="Sharpen", dtstart=date(2026, 8, 1))),
+        (item, _task(item, title="Oil change", dtstart=date(2026, 7, 15))),
+    ]
+
+    text = build_calendar(household, tasks)
+    dtstamp_lines = [
+        line for line in text.splitlines() if line.startswith("DTSTAMP:")
+    ]
+    assert len(dtstamp_lines) == 2
+    for line in dtstamp_lines:
+        assert _DTSTAMP_RE.match(line.split(":", 1)[1])
+
+    cal = ICalCalendar.from_ical(text)
+    events = list(cal.walk("VEVENT"))
+    assert len(events) == 2
+    for ev in events:
+        assert ev.get("DTSTAMP") is not None
+
+
+def test_dtstamp_is_overridable_for_deterministic_output() -> None:
+    household = _household()
+    item = _item(household)
+    task = _task(item)
+    fixed = datetime(2026, 5, 29, 19, 30, 45, tzinfo=timezone.utc)
+
+    text = build_calendar(household, [(item, task)], now=fixed)
+    assert "DTSTAMP:20260529T193045Z" in text
